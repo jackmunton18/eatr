@@ -3,17 +3,17 @@ import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import { FirebaseContext } from '../context/firebase';
+import { useContent } from '../hooks';
 
 export default function Dashboard() {
 
   const { firebase } = useContext(FirebaseContext);
   const user = firebase.auth().currentUser || {};
   const friendlyName = user.displayName;
-  const userId = user.uid;
 
   document.title = "eatr - Dashboard";
 
-  console.log(userId);
+  console.log(useContent('meals'));
 
   return (
     <>
