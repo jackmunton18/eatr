@@ -26,9 +26,9 @@ export default function Dashboard() {
             <Header.ButtonLink onClick={() => firebase.auth().signOut()}to={ROUTES.HOME}>Sign out</Header.ButtonLink>
           </Header.Group>
         </Header.Frame>
+      </Header>
         <p>Hello {friendlyName}</p>
         <p>Dashboard</p>
-      </Header>
     </>
   )
 }

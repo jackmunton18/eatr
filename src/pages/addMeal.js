@@ -1,8 +1,9 @@
 import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
-import { HeaderContainer } from '../containers/header';
-import { Form } from '../components';
+import { CenterContainer } from '../containers/center';
+import { Header, Form } from '../components';
 import { FirebaseContext} from '../context/firebase';
+import logo from '../logo.svg';
 import * as ROUTES from '../constants/routes';
 
 export default function AddMeal () {
@@ -203,11 +204,21 @@ export default function AddMeal () {
 
     return (
         <>
-            <HeaderContainer>
+            <Header>
+            <Header.Frame>
+                <Header.Group>
+                <Header.Logo to={ROUTES.HOME} src={logo} alt="eatr" />
+                </Header.Group>
+                <Header.Group>
+                <Header.ButtonLink onClick={() => firebase.auth().signOut()}to={ROUTES.HOME}>Sign out</Header.ButtonLink>
+                </Header.Group>
+            </Header.Frame>
+            </Header>
+            <CenterContainer>
                 <Form>
                     {renderSwitch(formStage)}
                 </Form>
-            </HeaderContainer>
+            </CenterContainer>
         </>
     );
 }
