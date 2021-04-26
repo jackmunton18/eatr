@@ -43,6 +43,13 @@ export default function AddMeal () {
     const handleAddMeal = async (e) => {
         e.preventDefault();
 
+        if (ingredients.indexOf('') !== -1) {
+            setIngredients(ingredients.filter(item => item !== ''));
+        }
+        if (allergens.indexOf('') !== -1) {
+            setAllergens(allergens.filter(item => item !== ''));
+        }
+
         // return false;
 
         try {
@@ -91,7 +98,7 @@ export default function AddMeal () {
     }
     const addAllergen = () => {
         if (allergens.indexOf('') === -1) {
-            setIngredients( allergens => [...allergens, '']);
+            setAllergens( allergens => [...allergens, '']);
         }
     }
     const writeAllergen = (index, name) => {

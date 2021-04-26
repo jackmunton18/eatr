@@ -1,9 +1,10 @@
 import React from 'react';
 import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
+import { WrapContainer as Wrap } from '../containers/wrap';
 import logo from '../logo.svg';
 
-export default function Dashboard({ slides }) {
+export default function Dashboard() {
 
     document.title = "eatr";
 
@@ -19,7 +20,10 @@ export default function Dashboard({ slides }) {
                     </Header.Group>
                 </Header.Frame>
             </Header>
-            <p>Home page</p>
+            <Wrap>
+               <p>Home page</p>
+                
+            </Wrap>
         </>
     )
 }
