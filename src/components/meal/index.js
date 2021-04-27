@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import { Container, Item, Title, Text } from './styles/meal';
-import Skeleton from 'react-loading-skeleton';
 
 export default function Meal({ meal, children, ...restProps}) {
 
