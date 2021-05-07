@@ -16,11 +16,12 @@ export const Inner = styled.div`
 
 `;
 export const Title = styled.h1`
-    font-size: 50px;
+    font-size: 18px;
     line-height: 1.1;
     position: relative;
     cursor: pointer;
-    padding: 20px;
+    padding: 20px 20px;
+    margin-bottom: 0px;
 
     @media max-width: 600px {
         font-size: 35px;
@@ -33,8 +34,9 @@ export const Title = styled.h1`
     &:before {
         content: 'v';
         position: absolute;
-        right: 40px;
-        top: 36px;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 20px;
         color: #a27035;
     }
@@ -42,4 +44,7 @@ export const Title = styled.h1`
 export const Text = styled.p`
     font-size: 16px;
     padding: 0px 20px;
+    &:first-of-type {
+        font-size: 14px;
+    }
 `;

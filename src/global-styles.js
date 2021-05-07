@@ -24,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     a {
         &:active {
-            color: #533E2D
+            color: #ffffff;
         }
     }
 `;

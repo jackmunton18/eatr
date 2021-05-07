@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import { WrapContainer as Wrap } from '../containers/wrap';
+import { CenterContainer } from '../containers/center';
 import logo from '../logo.svg';
 
 export default function NotFound() {
@@ -20,9 +21,9 @@ export default function NotFound() {
                     </Header.Group>
                 </Header.Frame>
             </Header>
-            <Wrap>
-               <p>Page not found</p>                
-            </Wrap>
+            <CenterContainer>
+               <p>Page not found</p>
+            </CenterContainer>
         </>
     )
 }

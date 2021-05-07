@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch} from 'react-router-dom';
-import { Home, Dashboard, Signin, Signup, Addmeal, NotFound} from './pages';
+import { Home, Dashboard, Signin, Signup, Addmeal, NotFound, EditMeal} from './pages';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 import { useAuthListener} from './hooks';
@@ -29,6 +29,14 @@ export default function App() {
           exact
         >
           <Dashboard/>
+        </ProtectedRoute>
+
+        <ProtectedRoute
+          user={user}
+          path={ROUTES.EDITMEAL}
+          exact
+        >
+          <EditMeal/>
         </ProtectedRoute>
 
         <ProtectedRoute

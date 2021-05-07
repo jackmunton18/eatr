@@ -34,7 +34,7 @@ export const Link = styled.p`
 export const Container = styled.div`
     display: flex;
     height: 64px;
-    padding: 20px 20px;
+    padding: 20px 40px;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -77,12 +77,12 @@ export const Text = styled.p`
 `;
 export const Logo = styled.img`
     height: 32px;
-    width: 108px;
+    width: 59px;
     margin-right: 40px;
 
 `;
 export const ButtonLink = styled(ReactRouterLink)`
-    display: block;
+    display: inline-block;
     background-color: #A27035;
     width: auto;
     height: fit-content;

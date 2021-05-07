@@ -18,12 +18,19 @@ export default function Meal({ meal, children, ...restProps}) {
                             <li key={idx}>{item}</li>
                         ))}
                     </ul>
-                    <Text>Allergens:</Text>
-                    <ul>
-                        {meal.allergens.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                        ))}
-                    </ul>
+                    {meal.allergens[0] === '' ? (
+                        <></>
+                    ) : (
+                        <>
+                            <Text>Allergens:</Text>
+                            <ul>
+                                {meal.allergens.map((item, idx) => (
+                                    <li key={idx}>{item}</li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+                    
                 </>
             ) : ''}
         </Item>

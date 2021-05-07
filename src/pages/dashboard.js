@@ -13,27 +13,55 @@ export default function Dashboard() {
   const user = firebase.auth().currentUser || {};
   const friendlyName = user.displayName;
 
-  const [meals, setMeals] = useState([])
+  const [meals, setMeals] = useState([]);
+  const [lastDoc, setLastDoc] = useState();
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   document.title = "eatr - Dashboard";
 
+
   useEffect(()=>{
-    if (typeof user.uid !== 'string') return;
+    console.log('initial fetch')
+    if (typeof user.uid !== 'string' || dataLoaded === true) return;
       firebase
-          .firestore()
-          .collection('meals').where("authorId", "==", user.uid)
-          .get()
-          .then((snapshot) => {
-              const allContent = snapshot.docs.map((contentObj) => ({
-                  ...contentObj.data(),
-                  docId: contentObj.id,
-              }))
-              setMeals(allContent);
-          })
-          .catch((e) =>{
-              console.log(e.message);
-          });
+      .firestore()
+      .collection('meals')
+      .where("authorId", "==", user.uid)
+      .orderBy('created', 'desc')
+      .limit(25)
+      .get()
+      .then((collections) => {
+          const allContent = collections.docs.map((meal) => meal.data());
+          setMeals(allContent);
+          setLastDoc(collections.docs[collections.docs.length - 1]);
+          setDataLoaded(true);
+          console.log(allContent);
+      })
+      .catch((e) =>{
+          console.log(e.message);
+      });
   }, [user]);
+
+  const fetchMore = () => {
+    console.log(lastDoc)
+    firebase
+      .firestore()
+      .collection('meals')
+      .where("authorId", "==", user.uid)
+      .orderBy('created', 'desc')
+      .limit(25)
+      .startAt(lastDoc)
+      .get()
+      .then((collections) => {
+          const allContent = collections.docs.map((meal) => meal.data());
+          console.log(collections.docs)
+          setMeals(allContent => [...meals, ...allContent]);
+          setLastDoc(collections.docs[collections.docs.length - 1]);
+      })
+      .catch((e) =>{
+          console.log(e.message);
+      });
+  }
   
 
   return (
@@ -52,30 +80,40 @@ export default function Dashboard() {
         <p>Hello {friendlyName}</p>
         <h2>My Meals</h2>
         <Header.ButtonLink to={ROUTES.ADDMEAL}>Add Meal</Header.ButtonLink>
-        {meals.length === 0 ? (
+        {dataLoaded === false ? (
           <>
-          {
-            Array.from({ length: 3 }, (_, k) => (
-              <SkeletonTheme color="#e2dcd4"> 
-                <p></p>
-                <Skeleton height={50} width={400}/>
-                <p></p>
-                <div>
-                  <Skeleton width={120}/>
-                </div>
-                <p></p>
-              </SkeletonTheme>
-            ))
-          }
-          
+            {
+              Array.from({ length: 3 }, (_, k) => (
+                <SkeletonTheme key={k} color="#e2dcd4"> 
+                  <p></p>
+                  <Skeleton height={50} width={400}/>
+                  <p></p>
+                  <div>
+                    <Skeleton width={120}/>
+                  </div>
+                  <p></p>
+                </SkeletonTheme>
+              ))
+            }          
           </>
-        ) : 
-          meals.map((meal, index) => {
-            return (
-              <Meals key={index} meal={meal}/>
-            )
-          })
+        ) :           
+          meals.length === 0 ? (
+            <p>No meals found</p>
+          ) : (
+            <>
+              {
+                meals.map((meal, index) => {
+                  return (
+                    <Meals key={index} meal={meal}/>
+                  )
+                })   
+              }
+            </>
+          )
+                 
         }
+
+        {/* <div onClick={() => fetchMore()}>load more...</div> */}
         
       </Wrap>
     </>
